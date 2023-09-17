@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/",myMiddleware(myHandler))
+	http.HandleFunc("/", myMiddleware(myHandler))
 
 	http.ListenAndServe(":8080", nil)
 }
@@ -15,13 +15,15 @@ func main() {
 func myHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("hi")
 	fmt.Println(r)
+	fmt.Println("---------------")
 	fmt.Println(w)
+	fmt.Println("===============")
 	w.WriteHeader(http.StatusOK)
 }
 
 func myMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("middleware!!")
-		next(w,r)
+		next(w, r)
 	}
 }
